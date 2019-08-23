@@ -1,4 +1,4 @@
-# Made by Ano.mobb
+# BitbruterGUI (pysimplegui)
 ```
 
 Windows 7,8,8.1,10
@@ -7,7 +7,6 @@ Windows 7,8,8.1,10
 ![Imgur](https://imgur.com/SNZyFvG.png)
 
 
-# Bitbruter
 ```
 offline dictionary attack on btc wallets
 
@@ -51,7 +50,6 @@ public key: 04040e4311b932c26f2172e112d1e37bca43428ea6951e3269513ecff6dda67dd8b3
 Donate to the author of this program: 1GmQaG9R5NPs3ZzR6XPMD9jZk17F9MuoWn
 
 ```
-# Working on new script with multiprocess and updated database
 
 
 #
