@@ -1,5 +1,6 @@
 # BitbruterGUI (pysimplegui)
 ```
+Added bitbruter.py so you can look the code.
 
 Windows 7,8,8.1,10
 ```
