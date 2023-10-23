@@ -36,32 +36,43 @@ def pubkey(secret_exponent):
     return '04' + binascii.hexlify(s.verifying_key.to_string()).decode('utf-8')
 
 def addr(public_key):
-    output = []; alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+    output = []
+    alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
     var = hashlib.new('ripemd160')
     var.update(hashlib.sha256(binascii.unhexlify(public_key.encode())).digest())
-    var = '00' + var.hexdigest() + hashlib.sha256(hashlib.sha256(binascii.unhexlify(('00' + var.hexdigest()).encode())).digest()).hexdigest()[0:8]
+    var = f"00{var.hexdigest()}{hashlib.sha256(hashlib.sha256(binascii.unhexlify(f'00{var.hexdigest()}'.encode())).digest()).hexdigest()[:8]}"
     count = [char != '0' for char in var].index(True) // 2
     n = int(var, 16)
     while n > 0:
         n, remainder = divmod(n, 58)
         output.append(alphabet[remainder])
-    for i in range(count): output.append(alphabet[0])
+    output.extend(alphabet[0] for _ in range(count))
     return ''.join(output[::-1])
 
 def wif(secret_exponent):
-    var80 = "80"+secret_exponent
+    var80 = f"80{secret_exponent}"
     var = hashlib.sha256(binascii.unhexlify(hashlib.sha256(binascii.unhexlify(var80)).hexdigest())).hexdigest()
-    return str(base58.b58encode(binascii.unhexlify(str(var80) + str(var[0:8]))), 'utf-8')
+    return str(
+        base58.b58encode(binascii.unhexlify(str(var80) + str(var[:8]))),
+        'utf-8',
+    )
 
 def database(address):
     with open("data-base", "r") as m:
         add = m.read().split()
-        for ad in add:
+        for _ in add:
             continue
         if address in add:
-            data = open("Win.txt","a")
-            data.write("found " + str(sect)+"\n" +str(address)+"\n"+str(WIF)+"\n"+"\n")
-            data.close()
+            with open("Win.txt","a") as data:
+                data.write(
+                    f"found {str(sect)}"
+                    + "\n"
+                    + str(address)
+                    + "\n"
+                    + str(WIF)
+                    + "\n"
+                    + "\n"
+                )
 
 
 def main():
